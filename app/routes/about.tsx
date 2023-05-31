@@ -48,8 +48,16 @@ export default function About() {
 
         <Text size="md" mt={30}>
           Have any questions? Would like to work together? Feel free to reach
-          the main guy <a href="www.linkedin.com/in/chrishailey8"> Chris</a> on
-          Telegram @chailey or on Discord chailey#7351.
+          the main guy{" "}
+          <a
+            href="https://linkedin.com/in/chrishailey8"
+            target="_blank"
+            rel="noreferrer"
+          >
+            {" "}
+            Chris
+          </a>{" "}
+          on Telegram @chailey or on Discord chailey#7351.
         </Text>
       </Flex>
     </div>
