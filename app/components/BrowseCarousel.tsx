@@ -1,11 +1,13 @@
 import {
   Badge,
   Box,
+  Button,
   Card,
   CheckIcon,
   ColorSwatch,
   Group,
   Image,
+  Modal,
   SimpleGrid,
   Text,
   Tooltip,
@@ -14,6 +16,7 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import type { Prisma, product } from "@prisma/client";
 import { useState } from "react";
+import { VideoStream } from "./VideoStream";
 
 const ProductCard = (props: { product: product }) => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -58,7 +61,7 @@ const ProductCard = (props: { product: product }) => {
 
   return (
     <>
-      {/* 
+
       <Modal
         opened={opened}
         onClose={close}
@@ -72,7 +75,7 @@ const ProductCard = (props: { product: product }) => {
         {checkedColor !== "" && <VideoStream colorHex={checkedColor} />}
         {checkedColor === "" && <Text>Please select a color first!</Text>}
       </Modal>
-  */}
+
       <Card shadow="sm" padding="lg" radius="md" withBorder>
         <Card.Section>
           <Image src={props.product.image} height={200} alt="Image" />
@@ -90,7 +93,7 @@ const ProductCard = (props: { product: product }) => {
         <Group position="center" spacing="xs">
           {swatches}
         </Group>
-        {/* 
+
         <Tooltip label="Select a Color before trying on">
           <Button
             variant="light"
@@ -104,7 +107,7 @@ const ProductCard = (props: { product: product }) => {
             Try On
           </Button>
         </Tooltip>
-        */}
+
       </Card>
     </>
   );
