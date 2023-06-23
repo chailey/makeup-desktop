@@ -31,18 +31,6 @@ export default function About() {
         </Text>
 
         <Title order={1} color="red" mt={50}>
-          Lean, Mean Machine
-        </Title>
-
-        <Text size="md" mt={30}>
-          We keep the product simple -- a bot that can be used to get the best
-          recommendations based on your personal preferences and
-          characteristics, a browsing section to find any products you wish to
-          use, and a recommended area to see some of our hottest and trendiest
-          makeup of the week.
-        </Text>
-
-        <Title order={1} color="red" mt={50}>
           Contact Us
         </Title>
 
