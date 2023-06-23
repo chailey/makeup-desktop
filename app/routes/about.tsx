@@ -35,8 +35,7 @@ export default function About() {
         </Title>
 
         <Text size="md" mt={30}>
-          Have any questions? Would like to work together? Feel free to reach
-          the main guy{" "}
+          Have any questions? Feel free to reach the main guy{" "}
           <a
             href="https://linkedin.com/in/chrishailey8"
             target="_blank"
