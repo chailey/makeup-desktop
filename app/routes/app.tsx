@@ -1,9 +1,13 @@
-import { Badge, Flex, List, Tabs, Text } from "@mantine/core";
-import type { V2_MetaFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Badge, Button, Flex, List, Tabs, Text } from "@mantine/core";
+import { DiscordIcon } from "@mantine/ds";
+import type { ActionArgs, LoaderFunction } from "@remix-run/node";
+import { type V2_MetaFunction } from "@remix-run/node";
+import { Form, Link, useLoaderData } from "@remix-run/react";
+import type { DiscordUser } from "~/auth.server";
+import { auth } from "~/auth.server";
 import { BrowseCarousel } from "../components/BrowseCarousel";
 import { SearchForm } from "../components/SearchForm";
-import { getAllProducts } from "../models/product.server";
+
 export const meta: V2_MetaFunction = () => {
   return [
     { title: "MakeupDB" },
@@ -11,13 +15,18 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-export async function loader() {
-  const products = await getAllProducts();
-  return products;
+export let loader: LoaderFunction = async ({ request }) => {
+  return await auth.isAuthenticated(request, {
+    failureRedirect: "/login",
+  });
+};
+
+export async function action({ request }: ActionArgs) {
+  await auth.logout(request, { redirectTo: "/" });
 }
 
 export default function App() {
-  const products = useLoaderData();
+  const user = useLoaderData<DiscordUser>();
   return (
     <div>
       <Tabs
@@ -25,21 +34,21 @@ export default function App() {
         variant="pills"
         radius="md"
         orientation="vertical"
-        defaultValue="bot"
+        defaultValue="home"
         ml={10}
       >
         <Tabs.List>
+          <Tabs.Tab
+            value="home"
+            style={{ fontSize: "32px", fontWeight: "bold" }}
+          >
+            Home
+          </Tabs.Tab>
           <Tabs.Tab
             value="bot"
             style={{ fontSize: "32px", fontWeight: "bold" }}
           >
             Bot
-          </Tabs.Tab>
-          <Tabs.Tab
-            value="browse"
-            style={{ fontSize: "32px", fontWeight: "bold" }}
-          >
-            Browse
           </Tabs.Tab>
           <Tabs.Tab
             value="recommend"
@@ -51,13 +60,53 @@ export default function App() {
             disabled
           >
             <Flex direction="row" justify="center">
-              For You {"  "}
+              Review {"  "}
               <Badge color="red" size="xl" radius="md">
                 SOON
               </Badge>
             </Flex>
           </Tabs.Tab>
         </Tabs.List>
+        <Tabs.Panel value="home">
+          <Flex justify={"center"} mx="auto" direction={"column"} maw={500}>
+            <Text align="center" size="xl" fw={700} pb={20}>
+              Welcome to MakeupDB, {user.displayName}#{user.discriminator}
+            </Text>
+            <Text align="center" size="md" weight={"bolder"} pb={10}>
+              Check out our MakeupBot on the left, our official A.I that gives
+              you the latest and greatest makeup recommendations. Additionally,
+              connect with fellow MakeupDB enthusiasts and get exclusive support
+              on our Discord server!
+            </Text>
+
+            <Flex align="center" direction="column">
+              <Link
+                target="blank"
+                to="https://discord.gg/WqGmXsQS"
+                rel="prefetch"
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                }}
+              >
+                <Button
+                  variant="outline"
+                  leftIcon={<DiscordIcon size="1rem" />}
+                  color="#5865F2"
+                  radius="md"
+                  size="md"
+                  mb={30}
+                  mt={30}
+                >
+                  Discord Server
+                </Button>
+              </Link>
+              <Form method="post">
+                <Button type="submit">Logout</Button>
+              </Form>
+            </Flex>
+          </Flex>
+        </Tabs.Panel>
 
         <Tabs.Panel value="bot">
           <Flex justify={"center"} mx="auto" direction={"column"}>
@@ -98,7 +147,7 @@ export default function App() {
               Browse our makeup on your own!
             </Text>
             <SearchForm />
-            <BrowseCarousel products={products} />
+            <BrowseCarousel products={[]} />
           </Flex>
         </Tabs.Panel>
 

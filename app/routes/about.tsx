@@ -57,7 +57,7 @@ export default function About() {
             {" "}
             Chris
           </a>{" "}
-          on Telegram @chailey or on Discord chailey#7351.
+          on Telegram @chailey or on Discord .chailey.
         </Text>
       </Flex>
     </div>
