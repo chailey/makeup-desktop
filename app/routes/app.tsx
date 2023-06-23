@@ -5,8 +5,6 @@ import { type V2_MetaFunction } from "@remix-run/node";
 import { Form, Link, useLoaderData } from "@remix-run/react";
 import type { DiscordUser } from "~/auth.server";
 import { auth } from "~/auth.server";
-import { BrowseCarousel } from "../components/BrowseCarousel";
-import { SearchForm } from "../components/SearchForm";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -118,7 +116,7 @@ export default function App() {
                 Ask questions related to makeup based on your traits. For
                 example:
               </Text>
-              <List withPadding>
+              <List withPadding mb={30}>
                 <List.Item>
                   What lipsticks to you recommend for a 25-year-old with dry
                   skin?
@@ -126,6 +124,37 @@ export default function App() {
 
                 <List.Item>
                   What is the most trending red mascara currently?
+                </List.Item>
+              </List>
+              <Text align="left" size="md">
+                Makeup Covered:
+              </Text>
+              <List withPadding>
+                <List.Item>
+                  <Text component="span" inherit fw={"bold"}>
+                    Cheek:{" "}
+                  </Text>
+                  Blush, Bronzer
+                </List.Item>
+                <List.Item>
+                  <Text component="span" inherit fw={"bold"}>
+                    Face:{" "}
+                  </Text>
+                  Color Corrector, Concealer, Contour, Face Primer, Highlighter,
+                  Liquid Foundation, Loose Powder, Pressed Powder, Setting Spray
+                </List.Item>
+                <List.Item>
+                  <Text component="span" inherit fw={"bold"}>
+                    Eye:{" "}
+                  </Text>
+                  Eyelash Serum, Eye Primer, Makeup Pencil, Eyeliner, Eyeshadow
+                  Palettes, Eyeshadow, Mascara
+                </List.Item>
+                <List.Item>
+                  <Text component="span" inherit fw={"bold"}>
+                    Lip:{" "}
+                  </Text>
+                  Lip balm, Lip gloss, Lip liner, Lip plumper, Lipstick
                 </List.Item>
               </List>
             </Flex>
@@ -138,16 +167,6 @@ export default function App() {
                 height="800"
               />
             </Flex>
-          </Flex>
-        </Tabs.Panel>
-
-        <Tabs.Panel value="browse">
-          <Flex justify={"center"} mx="auto" direction={"column"}>
-            <Text align="center" size="xl" fw={700}>
-              Browse our makeup on your own!
-            </Text>
-            <SearchForm />
-            <BrowseCarousel products={[]} />
           </Flex>
         </Tabs.Panel>
 
